@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
 use Illuminate\Support\Facades\Route;
 
@@ -9,3 +10,7 @@ Route::get('/', function () {
 
 Route::resource('books', BookController::class)
     ->only(['index','show']);
+
+Route::resource('authors', AuthorController::class)
+    ->only(['index','show','create','store']);
+

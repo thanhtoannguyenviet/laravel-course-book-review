@@ -14,6 +14,11 @@ class Book extends Model
         return $this->hasMany(Review::class);
     }
 
+    public function authors()
+    {
+        return $this->belongsToMany(Author::class, 'author_book');
+    }
+
     // add this we can use Book::title('title')->get();
     public function scopeTitle(Builder $query, string $title)
     {

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 class Book extends Model
 {
     use HasFactory;
-
+    protected $fillable = ['title'];
     public function reviews()
     {
         return $this->hasMany(Review::class);
@@ -16,7 +16,7 @@ class Book extends Model
 
     public function authors()
     {
-        return $this->belongsToMany(Author::class, 'author_book');
+        return $this->belongsToMany(Author::class);
     }
 
     // add this we can use Book::title('title')->get();

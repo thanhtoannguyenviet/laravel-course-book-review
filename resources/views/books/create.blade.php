@@ -8,7 +8,7 @@
         <label for="title">Title:</label>
         <input type="text" id="title" name="title" required>
         <label for="authors">Select Authors:</label>
-        <select name="authors" id="authors" multiple>
+        <select name="authors[]" id="authors" multiple>
             @foreach($authors as $author)
                 <option value="{{ $author->id }}">
                     {{ $author->name }}

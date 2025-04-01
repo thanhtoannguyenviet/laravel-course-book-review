@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use App\Models\Book;
+use App\Models\Author;
 
 class BookController extends Controller
 {
@@ -37,7 +39,10 @@ class BookController extends Controller
      */
     public function create()
     {
-        //
+        $authors = Author::all();
+        return view('books.create')->with([
+            'authors' => $authors,
+        ]);
     }
 
     /**
@@ -45,7 +50,13 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required|string|max:255'
+        ]);
+
+        $book = Book::create(['title' => $validated['title']]);
+        $book->authors()->attach($request->authors);
+        return redirect()->route('books.index')->with('success', 'Book created successfully');
     }
 
     /**
@@ -53,7 +64,10 @@ class BookController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $book = Book::with(['reviews', 'authors'])->findOrFail($id);
+        return view('books.show', [
+            'book' => $book,
+        ]);
     }
 
     /**

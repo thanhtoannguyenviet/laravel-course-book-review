@@ -1,1 +1,1 @@
-<h1>Hi, {{ Auth::user()->name || '' }}</h1>
+<h1>Hi, {{ $username }}</h1>

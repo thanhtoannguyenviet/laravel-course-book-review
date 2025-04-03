@@ -1,4 +1,6 @@
-<x-layout>
+@extends('layouts.app')
+
+@section('content')
     <h1 class="my-16 text-center text-4xl font-medium text-slate-600">
       Sign in to your account
     </h1>
@@ -10,14 +12,14 @@
         <div class="mb-8">
           <label for="email"
             class="mb-2 block text-sm font-medium text-slate-900">E-mail</label>
-          <x-text-input name="email" />
+          <input name="email" />
         </div>
 
         <div class="mb-8">
           <label for="password" class="mb-2 block text-sm font-medium text-slate-900">
             Password
           </label>
-          <x-text-input name="password" type="password" />
+          <input name="password" type="password" />
         </div>
 
         <div class="mb-8 flex justify-between text-sm font-medium">
@@ -34,7 +36,7 @@
             </a>
           </div>
         </div>
-        <x-button class="w-full bg-green-50">Login</x-button>
+        <button class="w-full bg-green-50">Login</button>
         @if($errors->any())
             <ul class="px-4 py-2 bg-red-100">
                 @foreach ($errors->all() as $error)
@@ -43,5 +45,4 @@
             </ul>
         @endif
       </form>
-    </x-card>
-  </x-layout>
+@endsection

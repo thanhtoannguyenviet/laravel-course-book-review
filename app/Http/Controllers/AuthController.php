@@ -30,7 +30,24 @@ class AuthController extends Controller
         }
         return redirect()->route('books.index');
     }
-    public function login(){
+    public function login(Request $request){
+        $validated = $request->validate([
+            'email' => 'required|string|email|max:255',
+            'password' => 'required|string|min:8',
+        ]);
+        if (Auth::attempt($validated)) {
+            return redirect()->route('books.index');
+        }
+        return redirect()->route('login')->withErrors(['errors' => 'Invalid credentials']);
 
+    }
+
+    public function logout(Request $request){
+        Auth::logout();
+
+        //invalidate the session
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect()->route('login');
     }
 }

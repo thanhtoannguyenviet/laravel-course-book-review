@@ -11,8 +11,11 @@ Route::get('/', function () {
 
 Route::resource('books', BookController::class);
 
-Route::resource('authors', AuthorController::class)
+Route::middleware(['auth'])->group(function () {
+    Route::resource('authors', AuthorController::class)
     ->only(['index','show','create','store']);
+
+});
 
 // Authentication routes
 
@@ -24,3 +27,5 @@ Route::post('register', [AuthController::class, 'register'])
     ->name('register');
 Route::post('login', [AuthController::class, 'login'])
     ->name('login');
+Route::post('logout', [AuthController::class, 'logout'])
+    ->name('logout');

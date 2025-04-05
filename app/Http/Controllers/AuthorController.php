@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
+use App\Models\Author;
 class AuthorController extends Controller
 {
     /**
@@ -12,7 +14,17 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        //
+       if(Auth::user()->role == 'user') {
+                // Fetch authors from the database
+            $authors = Author::all();
+            // Return the authors to the view
+            return view('authors.index', compact('authors'))->with('username', Auth::user()->name);
+        }
+        else {
+            // If the user is not an admin, redirect them to the home page or show an error
+            return redirect()->route('books.index')->with('error', 'Unauthorized access');
+        }
+
     }
 
     /**
